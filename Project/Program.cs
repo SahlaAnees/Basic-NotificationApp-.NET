@@ -5,6 +5,7 @@ using Project.Service;
 using System;
 using System.Collections.Generic;
 using System.Net.Mail;
+using Microsoft.Extensions.Configuration;
 
 
 
@@ -19,8 +20,10 @@ namespace Project
 
             List<User> users = handler.GetUsers();
 
-            string emailUsername = "fathi.sahla97@gmail.com";
-            string emailPassword = "vwxiknbtxevugelv";
+            IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+
+            string emailUsername = configuration.GetSection("EmailSettings:Username").Value;
+            string emailPassword = configuration.GetSection("EmailSettings:Password").Value;
 
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
             {
@@ -29,9 +32,9 @@ namespace Project
                 EnableSsl = true,
             };
 
-            String twilioAccountSid = "ACd3f5805f297e51800a27f9d67d73987a";
-            String twilioAuthToken = "e23778ae0543141a50d0be2d325092f3";
-            String twilioPhoneNumber = "+16788905449";
+            String twilioAccountSid = configuration.GetSection("TwilioSettings:AccountSid").Value; 
+            String twilioAuthToken = configuration.GetSection("TwilioSettings:AuthToken").Value;
+            String twilioPhoneNumber = configuration.GetSection("TwilioSettings:PhoneNumber").Value;
 
             foreach (User user in users)
             {
@@ -57,7 +60,7 @@ namespace Project
 
                 }
             }
-          //  smtpClient.Dispose();
+          //smtpClient.Dispose();
 
 
         }
