@@ -1,0 +1,19 @@
+﻿# Ignore compiled files
+*.exe
+*.dll
+*.pdb
+
+# Ignore build output directory
+/bin/
+/obj/
+
+# Ignore Visual Studio user-specific files
+.vs/
+*.suo
+
+# .NET Core
+project.lock.json
+project.assets.json
+
+# Ignore your sensitive credentials configuration file
+appsettings.json
